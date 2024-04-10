@@ -23,35 +23,20 @@ struct LandingView: View {
             
             VStack {
                 
-                List{
-                    Label(
-                        title: {
-                            Text("Study for Chemistry quiz")
-                        }, icon: {
-                            Image(systemName: "circle")
-                        }
-                    )
-    
-        
-                    Label(
-                        title: {
-                            Text("Finish Computer Science assignment")
-                        }, icon: {
-                            Image(systemName: "circle")
-                        }
+                List {
+                    ItemView(title: "Study for Chemistry quiz", done: false)
+                    
+                    ItemView(
+                        title: "Finish computer Science assignment",
+                        done: true
                     )
                     
-                    Label(
-                        title: {
-                            Text("Go for a run around campus")
-                        }, icon: {
-                            Image(systemName: "circle")
-                        }
-                    )
-      
+                    ItemView(title: "Go for a run around campus", done: false)
                 }
-                .searchable(text: $searchText)
                 
+            }
+            .searchable(text: $searchText)
+            
                 HStack{
                     TextField("Enter a to-do item", text: $newItemDescription)
                     
@@ -60,14 +45,34 @@ struct LandingView: View {
                     }
                     .font(.caption)
                 }
-                .padding(28)
+                .padding(20)
             }
         
             .navigationTitle("To do")
         }
     }
-}
+
 
 #Preview {
     LandingView()
+}
+
+struct ItemView: View {
+    
+ let title : String
+    var done: Bool
+    
+    var body: some View {
+        Label(
+            title: {
+                Text(title)
+            }, icon: {
+                if done == true{
+                    Image(systemName: "checkmark.circle")
+                } else{
+                    Image(systemName: "circle")
+                }
+            }
+        )
+    }
 }
